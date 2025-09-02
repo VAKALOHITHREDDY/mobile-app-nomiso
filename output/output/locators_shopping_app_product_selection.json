@@ -1,0 +1,38 @@
+{
+  "products_menu": {
+    "primary_locator": {
+      "strategy": "id",
+      "value": "com.example.shoppingapp:id/products_menu"
+    },
+    "secondary_locator": {
+      "strategy": "xpath",
+      "value": "//android.widget.Button[@text='Products']"
+    },
+    "description": "Button to navigate to the products menu",
+    "suggested_action": "click"
+  },
+  "first_product": {
+    "primary_locator": {
+      "strategy": "id",
+      "value": "com.example.shoppingapp:id/product_item_0"
+    },
+    "secondary_locator": {
+      "strategy": "xpath",
+      "value": "//android.widget.RecyclerView[@resource-id='com.example.shoppingapp:id/products_list']/android.widget.LinearLayout[1]"
+    },
+    "description": "The first product item in the products list",
+    "suggested_action": "click"
+  },
+  "add_to_cart_button": {
+    "primary_locator": {
+      "strategy": "id",
+      "value": "com.example.shoppingapp:id/add_to_cart_button"
+    },
+    "secondary_locator": {
+      "strategy": "xpath",
+      "value": "//android.widget.Button[@text='Add to Cart']"
+    },
+    "description": "Add to Cart button",
+    "suggested_action": "click"
+  }
+}

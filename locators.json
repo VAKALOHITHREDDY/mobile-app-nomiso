@@ -1,0 +1,311 @@
+{
+  "element_locators": {
+    "login_button": {
+      "element_name": "Login Button",
+      "element_type": "button",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/login_button", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "accessibility_id", "value": "login_access_button", "timeout": 12},
+        {"strategy": "xpath", "value": "//android.widget.Button[@text='Login']", "timeout": 10}
+      ],
+      "suggested_actions": ["click", "verify_element"],
+      "screen_context": "launch_screen"
+    },
+    
+    "username_field": {
+      "element_name": "Username Field",
+      "element_type": "text_field",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/username_field", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "accessibility_id", "value": "username_email_input", "timeout": 12},
+        {"strategy": "xpath", "value": "//android.widget.EditText[@hint='Username']", "timeout": 10}
+      ],
+      "suggested_actions": ["send_keys", "clear", "verify_element"],
+      "screen_context": "login_screen"
+    },
+    
+    "password_field": {
+      "element_name": "Password Field",
+      "element_type": "text_field",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/password_field", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "accessibility_id", "value": "secure_password_input", "timeout": 12},
+        {"strategy": "xpath", "value": "//android.widget.EditText[@password='true']", "timeout": 10}
+      ],
+      "suggested_actions": ["send_keys", "clear", "verify_element"],
+      "screen_context": "login_screen"
+    },
+    
+    "submit_button": {
+      "element_name": "Submit Button",
+      "element_type": "button",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/submit_button", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "accessibility_id", "value": "login_submit_authentication", "timeout": 12},
+        {"strategy": "xpath", "value": "//android.widget.Button[@text='Submit']", "timeout": 10}
+      ],
+      "suggested_actions": ["click", "verify_element"],
+      "screen_context": "login_screen"
+    },
+    
+    "error_message": {
+      "element_name": "Error Message",
+      "element_type": "text_view",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/error_message", "timeout": 10},
+      "fallback_locators": [
+        {"strategy": "xpath", "value": "//android.widget.TextView[contains(@text, 'Error')]", "timeout": 8},
+        {"strategy": "accessibility_id", "value": "authentication_error_display", "timeout": 6}
+      ],
+      "suggested_actions": ["verify_text", "verify_element"],
+      "screen_context": "login_screen"
+    },
+    
+    "products_menu": {
+      "element_name": "Products Menu",
+      "element_type": "button",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/products_menu", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "accessibility_id", "value": "products_catalog_menu", "timeout": 12},
+        {"strategy": "xpath", "value": "//android.widget.Button[@text='Products']", "timeout": 10}
+      ],
+      "suggested_actions": ["click", "verify_element"],
+      "screen_context": "home_screen"
+    },
+    
+    "product_list": {
+      "element_name": "Product List",
+      "element_type": "container",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/product_list", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "xpath", "value": "//android.widget.RecyclerView", "timeout": 12},
+        {"strategy": "class_name", "value": "android.widget.RecyclerView", "timeout": 10}
+      ],
+      "suggested_actions": ["verify_element", "scroll"],
+      "screen_context": "products_screen"
+    },
+    
+    "first_product": {
+      "element_name": "First Product",
+      "element_type": "list_item",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/first_product", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "xpath", "value": "//android.widget.FrameLayout[1]", "timeout": 12},
+        {"strategy": "accessibility_id", "value": "product_item_first", "timeout": 10}
+      ],
+      "suggested_actions": ["click", "verify_element"],
+      "screen_context": "products_screen"
+    },
+    
+    "add_to_cart_button": {
+      "element_name": "Add to Cart Button",
+      "element_type": "button",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/add_to_cart_button", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "accessibility_id", "value": "add_product_to_cart", "timeout": 12},
+        {"strategy": "xpath", "value": "//android.widget.Button[@text='Add to Cart']", "timeout": 10}
+      ],
+      "suggested_actions": ["click", "verify_element"],
+      "screen_context": "product_details_screen"
+    },
+    
+    "cart_badge": {
+      "element_name": "Cart Badge",
+      "element_type": "text_view",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/cart_badge", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "accessibility_id", "value": "cart_item_count_display", "timeout": 12},
+        {"strategy": "xpath", "value": "//android.widget.TextView[contains(@text, '1')]", "timeout": 10}
+      ],
+      "suggested_actions": ["verify_text", "verify_element"],
+      "screen_context": "header"
+    },
+    
+    "success_message": {
+      "element_name": "Success Message",
+      "element_type": "text_view",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/success_message", "timeout": 10},
+      "fallback_locators": [
+        {"strategy": "xpath", "value": "//android.widget.TextView[contains(@text, 'Added')]", "timeout": 8},
+        {"strategy": "accessibility_id", "value": "cart_addition_success", "timeout": 6}
+      ],
+      "suggested_actions": ["verify_text", "verify_element"],
+      "screen_context": "product_details_screen"
+    },
+    
+    "search_bar": {
+      "element_name": "Search Bar",
+      "element_type": "text_field",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/search_bar", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "accessibility_id", "value": "search_products_input", "timeout": 12},
+        {"strategy": "xpath", "value": "//android.widget.EditText[@hint='Search']", "timeout": 10}
+      ],
+      "suggested_actions": ["send_keys", "clear", "verify_element"],
+      "screen_context": "home_screen"
+    },
+    
+    "search_results": {
+      "element_name": "Search Results",
+      "element_type": "container",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/search_results_list", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "xpath", "value": "//android.widget.RecyclerView", "timeout": 12},
+        {"strategy": "class_name", "value": "android.widget.RecyclerView", "timeout": 10}
+      ],
+      "suggested_actions": ["verify_element", "scroll"],
+      "screen_context": "search_screen"
+    },
+    
+    "checkout_button": {
+      "element_name": "Checkout Button",
+      "element_type": "button",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/checkout_button", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "accessibility_id", "value": "proceed_to_checkout", "timeout": 12},
+        {"strategy": "xpath", "value": "//android.widget.Button[@text='Checkout']", "timeout": 10}
+      ],
+      "suggested_actions": ["click", "verify_element"],
+      "screen_context": "cart_screen"
+    },
+    
+    "payment_method": {
+      "element_name": "Payment Method",
+      "element_type": "list_item",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/payment_method_item", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "xpath", "value": "//android.widget.TextView[@text='Credit Card']", "timeout": 12},
+        {"strategy": "accessibility_id", "value": "select_payment_method", "timeout": 10}
+      ],
+      "suggested_actions": ["click", "verify_element"],
+      "screen_context": "checkout_screen"
+    },
+    
+    "order_summary": {
+      "element_name": "Order Summary",
+      "element_type": "container",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/order_summary", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "xpath", "value": "//android.widget.TextView[@text='Order Summary']", "timeout": 12},
+        {"strategy": "accessibility_id", "value": "order_summary_container", "timeout": 10}
+      ],
+      "suggested_actions": ["verify_element", "verify_text"],
+      "screen_context": "checkout_screen"
+    },
+    
+    "place_order_button": {
+      "element_name": "Place Order Button",
+      "element_type": "button",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/place_order_button", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "accessibility_id", "value": "confirm_and_place_order", "timeout": 12},
+        {"strategy": "xpath", "value": "//android.widget.Button[@text='Place Order']", "timeout": 10}
+      ],
+      "suggested_actions": ["click", "verify_element"],
+      "screen_context": "checkout_screen"
+    },
+    
+    "home_screen": {
+      "element_name": "Home Screen",
+      "element_type": "container",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/home_screen", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "xpath", "value": "//android.widget.TextView[@text='Home']", "timeout": 12},
+        {"strategy": "accessibility_id", "value": "home_screen_container", "timeout": 10}
+      ],
+      "suggested_actions": ["verify_element"],
+      "screen_context": "authenticated_home"
+    },
+    
+    "welcome_message": {
+      "element_name": "Welcome Message",
+      "element_type": "text_view",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/welcome_message", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "xpath", "value": "//android.widget.TextView[contains(@text, 'Welcome')]", "timeout": 12},
+        {"strategy": "accessibility_id", "value": "welcome_user_message", "timeout": 10}
+      ],
+      "suggested_actions": ["verify_text", "verify_element"],
+      "screen_context": "home_screen"
+    },
+    
+    "product_title": {
+      "element_name": "Product Title",
+      "element_type": "text_view",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/product_title", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "xpath", "value": "//android.widget.TextView[@text]", "timeout": 12},
+        {"strategy": "accessibility_id", "value": "product_name_title", "timeout": 10}
+      ],
+      "suggested_actions": ["verify_text", "verify_element"],
+      "screen_context": "product_details_screen"
+    },
+    
+    "product_price": {
+      "element_name": "Product Price",
+      "element_type": "text_view",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/product_price", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "xpath", "value": "//android.widget.TextView[contains(@text, '$')]", "timeout": 12},
+        {"strategy": "accessibility_id", "value": "product_price_display", "timeout": 10}
+      ],
+      "suggested_actions": ["verify_text", "verify_element"],
+      "screen_context": "product_details_screen"
+    },
+    
+    "product_image": {
+      "element_name": "Product Image",
+      "element_type": "image_view",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/product_image", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "xpath", "value": "//android.widget.ImageView", "timeout": 12},
+        {"strategy": "accessibility_id", "value": "product_image_display", "timeout": 10}
+      ],
+      "suggested_actions": ["verify_element"],
+      "screen_context": "product_details_screen"
+    },
+    
+    "cart_icon": {
+      "element_name": "Cart Icon",
+      "element_type": "button",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/cart_icon", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "accessibility_id", "value": "shopping_cart_icon", "timeout": 12},
+        {"strategy": "xpath", "value": "//android.widget.TextView[@text='Cart']", "timeout": 10}
+      ],
+      "suggested_actions": ["click", "verify_element"],
+      "screen_context": "header"
+    },
+    
+    "cart_product_item": {
+      "element_name": "Cart Product Item",
+      "element_type": "list_item",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/cart_product_item", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "xpath", "value": "//android.widget.FrameLayout", "timeout": 12},
+        {"strategy": "accessibility_id", "value": "cart_item_product", "timeout": 10}
+      ],
+      "suggested_actions": ["verify_element", "verify_text"],
+      "screen_context": "cart_screen"
+    },
+    
+    "cart_total": {
+      "element_name": "Cart Total",
+      "element_type": "text_view",
+      "primary_locator": {"strategy": "id", "value": "com.example.shoppingapp:id/cart_total", "timeout": 15},
+      "fallback_locators": [
+        {"strategy": "xpath", "value": "//android.widget.TextView[contains(@text, 'Total')]", "timeout": 12},
+        {"strategy": "accessibility_id", "value": "cart_total_amount", "timeout": 10}
+      ],
+      "suggested_actions": ["verify_text", "verify_element"],
+      "screen_context": "cart_screen"
+    }
+  },
+  
+  "configuration": {
+    "supported_strategies": ["id", "accessibility_id", "xpath", "class_name"],
+    "supported_actions": ["click", "send_keys", "clear", "verify_element", "verify_text", "scroll"],
+    "default_timeout": 15,
+    "retry_attempts": 3,
+    "screenshot_on_failure": true
+  }
+}

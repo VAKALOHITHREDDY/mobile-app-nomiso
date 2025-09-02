@@ -1,0 +1,479 @@
+[
+  {
+    "test_name": "shopping_app_login_flow_pass",
+    "description": "Successful user authentication and navigation to home screen with session establishment",
+    "test_type": "positive",
+    "priority": "critical",
+    "tags": ["authentication", "smoke", "core_functionality"],
+    "estimated_duration": 45,
+    "steps": [
+      {
+        "step_number": 1,
+        "description": "Navigate to login screen from app launch",
+        "action": "click",
+        "element": "login_button",
+        "input_data": null,
+        "expected_result": "Login screen opens with username and password fields visible",
+        "screenshot_required": true,
+        "wait_condition": {
+          "type": "element_visible",
+          "timeout": 10,
+          "condition_value": "username_field"
+        }
+      },
+      {
+        "step_number": 2,
+        "description": "Enter valid email address in username field",
+        "action": "send_keys",
+        "element": "username_field",
+        "input_data": "testuser@example.com",
+        "expected_result": "Email address is entered and field shows input validation success",
+        "screenshot_required": false,
+        "wait_condition": {
+          "type": "element_clickable",
+          "timeout": 5
+        }
+      },
+      {
+        "step_number": 3,
+        "description": "Enter valid password in password field",
+        "action": "send_keys",
+        "element": "password_field",
+        "input_data": "password123",
+        "expected_result": "Password is entered and masked with security dots",
+        "screenshot_required": false
+      },
+      {
+        "step_number": 4,
+        "description": "Submit login credentials",
+        "action": "click",
+        "element": "submit_button",
+        "input_data": null,
+        "expected_result": "Authentication processing initiated and loading indicator appears",
+        "screenshot_required": true,
+        "wait_condition": {
+          "type": "element_visible",
+          "timeout": 15,
+          "condition_value": "home_screen"
+        }
+      },
+      {
+        "step_number": 5,
+        "description": "Verify successful navigation to authenticated home screen",
+        "action": "verify_element",
+        "element": "home_screen",
+        "input_data": null,
+        "expected_result": "Home screen displays with user profile indicator and navigation menu",
+        "screenshot_required": true
+      },
+      {
+        "step_number": 6,
+        "description": "Validate user session establishment",
+        "action": "verify_text",
+        "element": "welcome_message",
+        "input_data": "Welcome",
+        "expected_result": "Welcome message displays with user identifier",
+        "screenshot_required": false
+      }
+    ],
+    "preconditions": [
+      "Mobile application is installed and accessible",
+      "Device has network connectivity",
+      "Valid user credentials are available",
+      "App database is accessible"
+    ],
+    "postconditions": [
+      "User authentication session is established",
+      "Home screen navigation is complete",
+      "User profile data is loaded",
+      "App state indicates logged-in status"
+    ],
+    "test_data": {
+      "valid_email": "testuser@example.com",
+      "valid_password": "password123",
+      "expected_welcome_text": "Welcome"
+    },
+    "environment_requirements": {
+      "app_version": ">=1.0.0",
+      "platform_version": ">=8.0",
+      "device_type": "phone_tablet",
+      "network_required": true
+    }
+  },
+  {
+    "test_name": "shopping_app_product_selection_pass",
+    "description": "Comprehensive product catalog browsing with detailed product information validation",
+    "test_type": "positive",
+    "priority": "high",
+    "tags": ["product_catalog", "ui_validation", "core_functionality"],
+    "estimated_duration": 60,
+    "steps": [
+      {
+        "step_number": 1,
+        "description": "Navigate to product catalog from main menu",
+        "action": "click",
+        "element": "products_menu",
+        "input_data": null,
+        "expected_result": "Product catalog screen loads with grid/list view of available products",
+        "screenshot_required": true,
+        "wait_condition": {
+          "type": "element_visible",
+          "timeout": 10,
+          "condition_value": "product_list"
+        }
+      },
+      {
+        "step_number": 2,
+        "description": "Validate product catalog loads with inventory",
+        "action": "verify_element",
+        "element": "product_list",
+        "input_data": null,
+        "expected_result": "Product listing displays with minimum 3 products visible",
+        "screenshot_required": false
+      },
+      {
+        "step_number": 3,
+        "description": "Select first available product for detailed view",
+        "action": "click",
+        "element": "first_product",
+        "input_data": null,
+        "expected_result": "Product detail screen opens with comprehensive product information",
+        "screenshot_required": true,
+        "wait_condition": {
+          "type": "element_visible",
+          "timeout": 8,
+          "condition_value": "product_title"
+        }
+      },
+      {
+        "step_number": 4,
+        "description": "Verify product title displays correctly",
+        "action": "verify_element",
+        "element": "product_title",
+        "input_data": null,
+        "expected_result": "Product title is clearly displayed with proper formatting",
+        "screenshot_required": false
+      },
+      {
+        "step_number": 5,
+        "description": "Validate product pricing information",
+        "action": "verify_element",
+        "element": "product_price",
+        "input_data": null,
+        "expected_result": "Product price displays with currency symbol and proper decimal formatting",
+        "screenshot_required": false
+      },
+      {
+        "step_number": 6,
+        "description": "Confirm product image loads and displays",
+        "action": "verify_element",
+        "element": "product_image",
+        "input_data": null,
+        "expected_result": "High-quality product image loads without broken image indicators",
+        "screenshot_required": true
+      },
+      {
+        "step_number": 7,
+        "description": "Validate add to cart functionality is available",
+        "action": "verify_element",
+        "element": "add_to_cart_button",
+        "input_data": null,
+        "expected_result": "Add to cart button is visible and enabled for interaction",
+        "screenshot_required": false
+      }
+    ],
+    "preconditions": [
+      "User authentication session is active",
+      "Product catalog contains available inventory",
+      "Network connectivity for product data loading",
+      "Application is in authenticated state"
+    ],
+    "postconditions": [
+      "Product details are completely loaded and visible",
+      "User interface elements are interactive",
+      "Add to cart functionality is accessible",
+      "Product information is accurate and complete"
+    ],
+    "test_data": {
+      "minimum_products_expected": 3,
+      "required_price_format": "currency_symbol_decimal",
+      "image_load_timeout": 8
+    },
+    "environment_requirements": {
+      "app_version": ">=1.0.0",
+      "platform_version": ">=8.0",
+      "device_type": "phone_tablet",
+      "network_required": true
+    }
+  },
+  {
+    "test_name": "shopping_app_add_to_cart_pass",
+    "description": "Complete end-to-end cart functionality with product addition and validation workflow",
+    "test_type": "positive",
+    "priority": "critical",
+    "tags": ["shopping_cart", "e_commerce", "core_functionality", "integration"],
+    "estimated_duration": 90,
+    "steps": [
+      {
+        "step_number": 1,
+        "description": "Navigate to product catalog for cart testing",
+        "action": "click",
+        "element": "products_menu",
+        "input_data": null,
+        "expected_result": "Product catalog loads with available inventory for selection",
+        "screenshot_required": true,
+        "wait_condition": {
+          "type": "element_visible",
+          "timeout": 10,
+          "condition_value": "product_list"
+        }
+      },
+      {
+        "step_number": 2,
+        "description": "Select target product for cart addition",
+        "action": "click",
+        "element": "first_product",
+        "input_data": null,
+        "expected_result": "Product detail view opens with add to cart functionality",
+        "screenshot_required": true,
+        "wait_condition": {
+          "type": "element_clickable",
+          "timeout": 8,
+          "condition_value": "add_to_cart_button"
+        }
+      },
+      {
+        "step_number": 3,
+        "description": "Execute add to cart action",
+        "action": "click",
+        "element": "add_to_cart_button",
+        "input_data": null,
+        "expected_result": "Product addition processing initiates with visual feedback",
+        "screenshot_required": true,
+        "wait_condition": {
+          "type": "element_visible",
+          "timeout": 5,
+          "condition_value": "success_message"
+        }
+      },
+      {
+        "step_number": 4,
+        "description": "Validate successful cart addition notification",
+        "action": "verify_text",
+        "element": "success_message",
+        "input_data": "Added to cart",
+        "expected_result": "Success message confirms product addition with clear messaging",
+        "screenshot_required": true
+      },
+      {
+        "step_number": 5,
+        "description": "Verify cart counter updates immediately",
+        "action": "verify_element",
+        "element": "cart_badge",
+        "input_data": null,
+        "expected_result": "Cart badge displays updated count indicating 1 item added",
+        "screenshot_required": false
+      },
+      {
+        "step_number": 6,
+        "description": "Navigate to cart for validation",
+        "action": "click",
+        "element": "cart_icon",
+        "input_data": null,
+        "expected_result": "Cart screen opens displaying added products and total calculations",
+        "screenshot_required": true,
+        "wait_condition": {
+          "type": "element_visible",
+          "timeout": 10,
+          "condition_value": "cart_product_item"
+        }
+      },
+      {
+        "step_number": 7,
+        "description": "Validate product appears in cart with correct details",
+        "action": "verify_element",
+        "element": "cart_product_item",
+        "input_data": null,
+        "expected_result": "Product displays in cart with title, price, quantity, and remove option",
+        "screenshot_required": true
+      },
+      {
+        "step_number": 8,
+        "description": "Verify cart total calculation accuracy",
+        "action": "verify_element",
+        "element": "cart_total",
+        "input_data": null,
+        "expected_result": "Cart total reflects correct pricing including taxes and fees",
+        "screenshot_required": false
+      },
+      {
+        "step_number": 9,
+        "description": "Confirm checkout functionality availability",
+        "action": "verify_element",
+        "element": "checkout_button",
+        "input_data": null,
+        "expected_result": "Checkout button is enabled and ready for purchase flow",
+        "screenshot_required": true
+      }
+    ],
+    "preconditions": [
+      "User authentication session is established",
+      "Product inventory is available and accessible",
+      "Shopping cart is empty or in known state",
+      "Network connectivity for cart operations",
+      "Payment processing system is accessible"
+    ],
+    "postconditions": [
+      "Product is successfully added to shopping cart",
+      "Cart counter reflects accurate item count",
+      "Cart total calculations are correct",
+      "Checkout functionality is available and enabled",
+      "Cart persistence is maintained across sessions"
+    ],
+    "test_data": {
+      "expected_cart_count": 1,
+      "success_message_text": "Added to cart",
+      "cart_load_timeout": 10,
+      "minimum_total_fields": ["subtotal", "tax", "total"]
+    },
+    "environment_requirements": {
+      "app_version": ">=1.0.0",
+      "platform_version": ">=8.0",
+      "device_type": "phone_tablet",
+      "network_required": true
+    }
+  },
+  {
+    "test_name": "shopping_app_login_flow_fail",
+    "description": "Comprehensive authentication failure handling with security validation and user feedback",
+    "test_type": "negative",
+    "priority": "high",
+    "tags": ["authentication", "security", "error_handling", "negative_testing"],
+    "estimated_duration": 60,
+    "steps": [
+      {
+        "step_number": 1,
+        "description": "Navigate to login screen for authentication testing",
+        "action": "click",
+        "element": "login_button",
+        "input_data": null,
+        "expected_result": "Login interface opens with input validation and security features",
+        "screenshot_required": true,
+        "wait_condition": {
+          "type": "element_visible",
+          "timeout": 10,
+          "condition_value": "username_field"
+        }
+      },
+      {
+        "step_number": 2,
+        "description": "Enter valid username for credential testing",
+        "action": "send_keys",
+        "element": "username_field",
+        "input_data": "testuser@example.com",
+        "expected_result": "Valid email format accepted with visual confirmation",
+        "screenshot_required": false,
+        "wait_condition": {
+          "type": "element_clickable",
+          "timeout": 5,
+          "condition_value": "password_field"
+        }
+      },
+      {
+        "step_number": 3,
+        "description": "Enter invalid password to trigger authentication failure",
+        "action": "send_keys",
+        "element": "password_field",
+        "input_data": "wrongpassword123",
+        "expected_result": "Invalid password entered and masked for security",
+        "screenshot_required": false
+      },
+      {
+        "step_number": 4,
+        "description": "Submit invalid credentials for authentication",
+        "action": "click",
+        "element": "submit_button",
+        "input_data": null,
+        "expected_result": "Authentication attempt processes with security validation",
+        "screenshot_required": true,
+        "wait_condition": {
+          "type": "element_visible",
+          "timeout": 15,
+          "condition_value": "error_message"
+        }
+      },
+      {
+        "step_number": 5,
+        "description": "Validate comprehensive error message display",
+        "action": "verify_text",
+        "element": "error_message",
+        "input_data": "Invalid credentials",
+        "expected_result": "Clear error message explains authentication failure without exposing security details",
+        "screenshot_required": true
+      },
+      {
+        "step_number": 6,
+        "description": "Confirm user remains on login screen",
+        "action": "verify_element",
+        "element": "login_screen",
+        "input_data": null,
+        "expected_result": "Login interface remains active preventing unauthorized access",
+        "screenshot_required": true
+      },
+      {
+        "step_number": 7,
+        "description": "Verify security-appropriate field handling",
+        "action": "verify_element",
+        "element": "password_field",
+        "input_data": null,
+        "expected_result": "Password field is cleared for security and retry attempts",
+        "screenshot_required": false
+      },
+      {
+        "step_number": 8,
+        "description": "Validate no unauthorized session creation",
+        "action": "verify_element",
+        "element": "username_field",
+        "input_data": null,
+        "expected_result": "Username field retains value for user convenience on retry",
+        "screenshot_required": false
+      },
+      {
+        "step_number": 9,
+        "description": "Confirm retry functionality availability",
+        "action": "verify_element",
+        "element": "submit_button",
+        "input_data": null,
+        "expected_result": "Submit button remains enabled for additional authentication attempts",
+        "screenshot_required": false
+      }
+    ],
+    "preconditions": [
+      "Mobile application is installed and accessible",
+      "Network connectivity for authentication validation",
+      "Authentication service is operational",
+      "Invalid credentials are available for testing",
+      "Security policies are enforced"
+    ],
+    "postconditions": [
+      "User authentication is denied and session not created",
+      "Clear error messaging provides appropriate feedback",
+      "Login interface remains accessible for retry attempts",
+      "Security measures prevent unauthorized access",
+      "No sensitive information is exposed in error messages"
+    ],
+    "test_data": {
+      "valid_email": "testuser@example.com",
+      "invalid_password": "wrongpassword123",
+      "expected_error_message": "Invalid credentials",
+      "max_auth_timeout": 15,
+      "security_clear_fields": ["password_field"]
+    },
+    "environment_requirements": {
+      "app_version": ">=1.0.0",
+      "platform_version": ">=8.0",
+      "device_type": "phone_tablet",
+      "network_required": true
+    }
+  }
+]

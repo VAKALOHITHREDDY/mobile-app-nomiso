@@ -1,0 +1,198 @@
+APPIUM AUTOMATION HELPER FUNCTIONS DOCUMENTATION
+==============================================
+
+This document provides detailed information about all helper functions available in the Appium automation framework.
+
+BASE.PY - SCREEN CAPTURE ENGINE (132 lines)
+==========================================
+
+Class: AppiumBase
+-----------------
+Main class that provides core Appium functionality and helper methods.
+
+Functions:
+----------
+__init__()
+- Initializes the AppiumBase class
+- Sets up logging configuration  
+- Creates necessary output directories
+
+setup_logging()
+- Configures logging with both file and console output
+- Creates appium_automation.log file
+- Sets INFO level logging
+
+setup_directories()
+- Creates output/ directory
+- Creates output/screenshots/ directory
+- Creates output/generated_scripts/ directory
+
+initialize_driver()
+- Initializes Appium WebDriver with UiAutomator2Options
+- Configures Android device connection (emulator-5554)
+- Sets app package: com.example.shoppingapp
+- Sets app activity: .SplashScreen
+- Returns: Boolean success status
+
+take_screenshot(test_name, step_number, step_description="")
+- Takes screenshot and saves to organized directory structure
+- Creates test-specific screenshot directories
+- Generates timestamped filenames with step numbers
+- Parameters:
+  * test_name: Name of test for directory organization
+  * step_number: Sequential step number
+  * step_description: Optional description for filename
+- Returns: Relative path to saved screenshot
+
+find_element_safe(locator_strategy, locator_value, timeout=10)
+- Safely finds elements using multiple locator strategies
+- Tries strategies: id, xpath, class_name, accessibility_id, android_uiautomator
+- Parameters:
+  * locator_strategy: Primary strategy to try first
+  * locator_value: Locator value/selector
+  * timeout: Maximum wait time (default 10 seconds)
+- Returns: WebElement if found
+- Raises: NoSuchElementException if element not found
+
+scroll_to_element(locator_strategy, locator_value, max_scrolls=5)
+- Scrolls page to find element that may not be visible
+- Performs vertical swipe gestures to scroll down
+- Parameters:
+  * locator_strategy: Locator strategy to use
+  * locator_value: Locator value/selector
+  * max_scrolls: Maximum scroll attempts (default 5)
+- Returns: WebElement when found
+- Raises: NoSuchElementException if not found after max scrolls
+
+get_page_source()
+- Retrieves current page XML source for AI analysis
+- Returns: String containing complete XML page source
+
+close_driver()
+- Properly closes Appium WebDriver connection
+- Logs closure confirmation
+
+
+LOCATOR_GENERATOR.PY - AI-POWERED LOCATOR GENERATION (125 lines)
+===============================================================
+
+Class: LocatorGenerator
+----------------------
+Uses Gemini AI API to analyze page source and generate robust locators.
+
+Functions:
+----------
+__init__(api_key)
+- Initializes LocatorGenerator with Gemini API key
+- Configures Google Generative AI client
+- Sets up logging
+
+_extract_json_from_response(response_text)
+- Extracts JSON data from AI response text
+- Handles responses that may contain extra text
+- Uses regex pattern matching to find JSON blocks
+- Returns: Clean JSON string
+
+analyze_page_source(page_source, target_element)
+- Main AI analysis function for generating locators
+- Sends page source to Gemini AI for analysis
+- Generates primary and secondary locators
+- Parameters:
+  * page_source: XML source of current page
+  * target_element: Name/description of element to find
+- Returns: Dictionary with locator strategies and metadata
+
+generate_locators_for_test_case(test_case, page_source)
+- Generates locators for all elements in a test case
+- Iterates through test steps to identify required elements
+- Calls analyze_page_source for each unique element
+- Parameters:
+  * test_case: Test case dictionary with steps
+  * page_source: Current page XML source
+- Returns: Dictionary mapping element names to locator data
+
+save_locators(locators, filename="locators.json")
+- Saves generated locators to JSON file
+- Creates output directory if needed
+- Parameters:
+  * locators: Dictionary of locator data
+  * filename: Output filename (default: locators.json)
+- Returns: Full file path of saved locators
+
+
+SCRIPT_GENERATOR.PY - AI-POWERED SCRIPT GENERATION (113 lines)
+=============================================================
+
+Class: ScriptGenerator
+---------------------
+Uses Gemini AI API to generate complete Appium test scripts.
+
+Functions:
+----------
+__init__(api_key)
+- Initializes ScriptGenerator with Gemini API key
+- Configures Google Generative AI client
+- Sets up logging
+
+_extract_python_code_from_response(response_text)
+- Extracts Python code from AI response
+- Handles code blocks with or without language specification
+- Uses regex patterns to find code blocks
+- Returns: Clean Python code string
+
+generate_test_script(test_case, locators, page_source="")
+- Main AI function for generating complete test scripts
+- Creates executable Appium test code
+- Includes all necessary imports and setup
+- Parameters:
+  * test_case: Test case definition with steps
+  * locators: Generated locator dictionary
+  * page_source: Optional page source for context
+- Returns: Complete Python test script as string
+
+save_script(script_content, test_name)
+- Saves generated script to output/generated_scripts/
+- Creates directory structure if needed
+- Generates standardized filename (test_{test_name}.py)
+- Parameters:
+  * script_content: Complete Python script code
+  * test_name: Name for the test script
+- Returns: Full file path of saved script
+
+
+USAGE WORKFLOW
+==============
+
+1. Initialize AppiumBase and connect to device
+2. Capture page source for AI analysis
+3. Use LocatorGenerator to create locators
+4. Use ScriptGenerator to create test scripts
+5. Execute generated scripts with proper setup
+
+Example:
+--------
+base = AppiumBase()
+base.initialize_driver()
+page_source = base.get_page_source()
+
+locator_gen = LocatorGenerator(api_key)
+locators = locator_gen.generate_locators_for_test_case(test_case, page_source)
+
+script_gen = ScriptGenerator(api_key)
+script = script_gen.generate_test_script(test_case, locators, page_source)
+script_gen.save_script(script, test_case['test_name'])
+
+DEPENDENCIES
+============
+- appium-python-client
+- selenium
+- google-generativeai (Gemini API)
+- python-dotenv
+
+REQUIREMENTS
+============
+- Android SDK and ADB
+- Appium Server
+- Android Emulator or Physical Device
+- Python 3.8+
+- Gemini API Key

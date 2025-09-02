@@ -1,0 +1,50 @@
+{
+  "cart_icon": {
+    "primary_locator": {
+      "strategy": "id",
+      "value": "com.example.shoppingapp:id/cart_icon"
+    },
+    "secondary_locator": {
+      "strategy": "accessibility_id",
+      "value": "Shopping Cart"
+    },
+    "description": "Shopping Cart Icon",
+    "suggested_action": "click"
+  },
+  "checkout_button": {
+    "primary_locator": {
+      "strategy": "id",
+      "value": "com.example.shoppingapp:id/checkout_button"
+    },
+    "secondary_locator": {
+      "strategy": "xpath",
+      "value": "//android.widget.Button[@text='Checkout']"
+    },
+    "description": "Checkout button",
+    "suggested_action": "click"
+  },
+  "shipping_address": {
+    "primary_locator": {
+      "strategy": "id",
+      "value": "com.example.shoppingapp:id/shipping_address"
+    },
+    "secondary_locator": {
+      "strategy": "xpath",
+      "value": "//android.widget.EditText[@hint='Shipping Address']"
+    },
+    "description": "Shipping Address input field",
+    "suggested_action": "send_keys"
+  },
+  "place_order_button": {
+    "primary_locator": {
+      "strategy": "id",
+      "value": "com.example.shoppingapp:id/place_order_button"
+    },
+    "secondary_locator": {
+      "strategy": "xpath",
+      "value": "//android.widget.Button[@text='Place Order']"
+    },
+    "description": "Place Order button",
+    "suggested_action": "click"
+  }
+}

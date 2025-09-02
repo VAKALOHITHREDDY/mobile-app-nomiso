@@ -1,0 +1,50 @@
+{
+  "login_button": {
+    "primary_locator": {
+      "strategy": "id",
+      "value": "com.example.shoppingapp:id/login_button"
+    },
+    "secondary_locator": {
+      "strategy": "xpath",
+      "value": "//android.widget.Button[@text='Login']"
+    },
+    "description": "Login button on the main screen",
+    "suggested_action": "click"
+  },
+  "username_field": {
+    "primary_locator": {
+      "strategy": "id",
+      "value": "com.example.shoppingapp:id/username_field"
+    },
+    "secondary_locator": {
+      "strategy": "xpath",
+      "value": "//android.widget.EditText[@hint='Username']"
+    },
+    "description": "Username input field",
+    "suggested_action": "send_keys"
+  },
+  "password_field": {
+    "primary_locator": {
+      "strategy": "id",
+      "value": "com.example.shoppingapp:id/password_field"
+    },
+    "secondary_locator": {
+      "strategy": "xpath",
+      "value": "//android.widget.EditText[@hint='Password']"
+    },
+    "description": "Password input field",
+    "suggested_action": "send_keys"
+  },
+  "submit_button": {
+    "primary_locator": {
+      "strategy": "id",
+      "value": "com.example.shoppingapp:id/submit_button"
+    },
+    "secondary_locator": {
+      "strategy": "xpath",
+      "value": "//android.widget.Button[@text='Submit']"
+    },
+    "description": "Submit Button",
+    "suggested_action": "click"
+  }
+}

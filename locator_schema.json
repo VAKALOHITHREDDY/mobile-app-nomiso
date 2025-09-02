@@ -1,0 +1,282 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Enterprise Appium Locator Schema",
+  "description": "Comprehensive schema for mobile test automation locators and test case definitions",
+  "version": "2.0.0",
+  
+  "definitions": {
+    "locator_strategy": {
+      "type": "string",
+      "enum": ["id", "xpath", "class_name", "accessibility_id", "android_uiautomator", "name", "tag_name"],
+      "description": "Supported element locator strategies"
+    },
+    "action_type": {
+      "type": "string", 
+      "enum": ["click", "send_keys", "swipe", "scroll", "wait", "verify_text", "verify_element", "clear", "long_press", "double_tap"],
+      "description": "Supported element actions"
+    },
+    "locator_definition": {
+      "type": "object",
+      "properties": {
+        "strategy": {"$ref": "#/definitions/locator_strategy"},
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Locator value/selector"
+        },
+        "timeout": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60,
+          "default": 15,
+          "description": "Element wait timeout in seconds"
+        }
+      },
+      "required": ["strategy", "value"],
+      "additionalProperties": false
+    }
+  },
+
+  "type": "object",
+  "properties": {
+    "element_locators": {
+      "type": "object",
+      "description": "Element locator definitions with fallback strategies",
+      "patternProperties": {
+        "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+          "type": "object",
+          "properties": {
+            "element_name": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Human-readable element name"
+            },
+            "element_type": {
+              "type": "string",
+              "enum": ["button", "text_field", "text_view", "image", "checkbox", "radio_button", "dropdown", "list_item", "container"],
+              "description": "UI element type classification"
+            },
+            "primary_locator": {"$ref": "#/definitions/locator_definition"},
+            "fallback_locators": {
+              "type": "array",
+              "items": {"$ref": "#/definitions/locator_definition"},
+              "maxItems": 3,
+              "description": "Alternative locators for resilience"
+            },
+            "description": {
+              "type": "string",
+              "description": "Detailed element description and purpose"
+            },
+            "suggested_actions": {
+              "type": "array",
+              "items": {"$ref": "#/definitions/action_type"},
+              "description": "Recommended actions for this element"
+            },
+            "validation_text": {
+              "type": "string",
+              "description": "Expected text content for validation"
+            },
+            "screen_context": {
+              "type": "string",
+              "description": "Screen or page where element appears"
+            },
+            "accessibility_info": {
+              "type": "object",
+              "properties": {
+                "content_desc": {"type": "string"},
+                "role": {"type": "string"},
+                "hint": {"type": "string"}
+              },
+              "description": "Accessibility information for better locating"
+            }
+          },
+          "required": ["element_name", "element_type", "primary_locator"],
+          "additionalProperties": false
+        }
+      }
+    },
+
+    "test_case_structure": {
+      "type": "object",
+      "description": "Comprehensive test case definition structure",
+      "properties": {
+        "test_name": {
+          "type": "string",
+          "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$",
+          "description": "Unique test case identifier"
+        },
+        "test_type": {
+          "type": "string",
+          "enum": ["positive", "negative", "boundary", "integration", "smoke"],
+          "description": "Test case classification"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low"],
+          "default": "medium",
+          "description": "Test execution priority"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Detailed test case description"
+        },
+        "tags": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Test categorization tags"
+        },
+        "estimated_duration": {
+          "type": "integer",
+          "minimum": 10,
+          "description": "Estimated execution time in seconds"
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "step_number": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Sequential step number"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 5,
+                "description": "Step description"
+              },
+              "action": {"$ref": "#/definitions/action_type"},
+              "element": {
+                "type": "string",
+                "description": "Target element identifier"
+              },
+              "input_data": {
+                "type": ["string", "null"],
+                "description": "Input data for the action"
+              },
+              "expected_result": {
+                "type": "string",
+                "description": "Expected outcome of the step"
+              },
+              "screenshot_required": {
+                "type": "boolean",
+                "default": false,
+                "description": "Whether screenshot is needed"
+              },
+              "wait_condition": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": ["element_visible", "element_clickable", "text_present", "custom_wait"]
+                  },
+                  "timeout": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 30
+                  },
+                  "condition_value": {"type": "string"}
+                },
+                "description": "Wait conditions before step execution"
+              }
+            },
+            "required": ["step_number", "description", "action", "expected_result"],
+            "additionalProperties": false
+          }
+        },
+        "preconditions": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Prerequisites before test execution"
+        },
+        "postconditions": {
+          "type": "array", 
+          "items": {"type": "string"},
+          "description": "Expected state after test completion"
+        },
+        "test_data": {
+          "type": "object",
+          "description": "Test-specific data requirements"
+        },
+        "environment_requirements": {
+          "type": "object",
+          "properties": {
+            "app_version": {"type": "string"},
+            "platform_version": {"type": "string"},
+            "device_type": {"type": "string"},
+            "network_required": {"type": "boolean"}
+          },
+          "description": "Environment and device requirements"
+        }
+      },
+      "required": ["test_name", "test_type", "description", "steps"],
+      "additionalProperties": false
+    },
+
+    "configuration": {
+      "type": "object",
+      "description": "Schema configuration and metadata",
+      "properties": {
+        "supported_strategies": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/locator_strategy"},
+          "description": "All supported locator strategies"
+        },
+        "supported_actions": {
+          "type": "array", 
+          "items": {"$ref": "#/definitions/action_type"},
+          "description": "All supported element actions"
+        },
+        "default_timeout": {
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 60,
+          "default": 15,
+          "description": "Default element wait timeout"
+        },
+        "retry_attempts": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5,
+          "default": 3,
+          "description": "Default retry attempts for failed operations"
+        },
+        "screenshot_on_failure": {
+          "type": "boolean",
+          "default": true,
+          "description": "Auto-capture screenshots on failures"
+        }
+      }
+    },
+
+    "validation_rules": {
+      "type": "object",
+      "description": "Validation and quality rules",
+      "properties": {
+        "locator_quality": {
+          "type": "object",
+          "properties": {
+            "prefer_id_over_xpath": {"type": "boolean", "default": true},
+            "max_xpath_depth": {"type": "integer", "default": 5},
+            "require_fallback_locators": {"type": "boolean", "default": true},
+            "accessibility_compliance": {"type": "boolean", "default": true}
+          }
+        },
+        "test_quality": {
+          "type": "object",
+          "properties": {
+            "min_steps_per_test": {"type": "integer", "default": 3},
+            "max_steps_per_test": {"type": "integer", "default": 20},
+            "require_assertions": {"type": "boolean", "default": true},
+            "require_cleanup": {"type": "boolean", "default": true}
+          }
+        }
+      }
+    }
+  },
+
+  "required": ["element_locators", "test_case_structure", "configuration"],
+  "additionalProperties": false
+}
